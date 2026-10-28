@@ -1,0 +1,723 @@
+<!-- ==========================================
+     PAGE: SERVICES (services.html)
+     ========================================== -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | Texas Same-Day</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* =========================================
+           DESIGN TOKENS & SYSTEM
+           ========================================= */
+        :root {
+            /* Brand Colors */
+            --brand-navy: #0B1B36;
+            --brand-red: #D92D20;
+            --brand-red-hover: #B42318;
+            
+            /* Neutrals */
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAFC; 
+            
+            /* Text */
+            --text-primary: #0F172A; 
+            --text-secondary: #475569; 
+            --text-tertiary: #94A3B8; 
+            --text-inverse: #FFFFFF;
+            
+            /* Borders & Lines */
+            --border-light: #E2E8F0; 
+            --border-hover: #CBD5E1; 
+            
+            /* Typography */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-display: 'Outfit', sans-serif;
+            
+            /* Spacing System (4px base) */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-24: 6rem;
+
+            /* Radii */
+            --radius-sm: 4px;
+            --radius-md: 6px;
+            --radius-lg: 8px; 
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* =========================================
+           RESET & BASE
+           ========================================= */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--text-secondary);
+            background-color: var(--bg-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden; 
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            color: var(--text-primary);
+            font-weight: 600;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+        }
+
+        a { text-decoration: none; color: inherit; transition: color var(--transition-fast); }
+        ul { list-style: none; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: var(--space-6);
+            padding-right: var(--space-6);
+            width: 100%;
+        }
+
+        /* =========================================
+           COMPONENTS: LOGO & BUTTONS
+           ========================================= */
+        .logo {
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 1001;
+        }
+        
+        .logo img {
+            height: 44px; 
+            width: auto;
+            max-width: 180px;
+            object-fit: contain;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 var(--space-6);
+            height: 44px; 
+            border-radius: var(--radius-md);
+            font-family: var(--font-sans);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: 1px solid transparent;
+            text-align: center;
+            gap: var(--space-2);
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background-color: var(--brand-red);
+            color: var(--text-inverse);
+            box-shadow: var(--shadow-sm);
+        }
+        .btn-primary:hover {
+            background-color: var(--brand-red-hover);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            border-color: var(--border-light);
+            box-shadow: var(--shadow-sm);
+        }
+        .btn-secondary:hover {
+            background-color: var(--bg-secondary);
+            border-color: var(--border-hover);
+        }
+
+        /* =========================================
+           HEADER & NAV
+           ========================================= */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-light);
+            height: 72px;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-8);
+        }
+        
+        .nav-links a {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            position: relative;
+        }
+        
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-links a.active { color: var(--text-primary); }
+        
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -24px; 
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--brand-red);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--space-6);
+            position: relative;
+            z-index: 1001;
+        }
+
+        .phone-link {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        .phone-link i { color: var(--brand-red); }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            padding: var(--space-2);
+            border-radius: var(--radius-sm);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-5px);
+            transition: opacity var(--transition-fast), transform var(--transition-fast), visibility var(--transition-fast);
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            padding: var(--space-2) var(--space-6) var(--space-6);
+        }
+
+        .mobile-nav-links a {
+            padding: var(--space-3) 0;
+            border-bottom: 1px solid var(--border-light);
+            font-weight: 500;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+        .mobile-nav-links a:last-of-type { border-bottom: none; }
+        .mobile-nav-links .btn { margin-top: var(--space-4); width: 100%; }
+
+        /* =========================================
+           PAGE HEADER
+           ========================================= */
+        .page-header {
+            padding: var(--space-16) 0 var(--space-12);
+            border-bottom: 1px solid var(--border-light);
+            background-color: var(--bg-primary);
+        }
+        
+        .page-header-inner {
+            max-width: 800px;
+        }
+
+        .page-header h1 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            margin-bottom: var(--space-4);
+            color: var(--text-primary);
+        }
+
+        .page-header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 650px;
+        }
+
+        /* =========================================
+           SERVICES GRID
+           ========================================= */
+        .services-list {
+            padding-top: var(--space-8);
+            padding-bottom: var(--space-24);
+        }
+
+        .service-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-16);
+            align-items: center;
+            padding: var(--space-16) 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .service-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .service-row:nth-child(even) .service-image-wrapper {
+            order: -1;
+        }
+
+        .service-text {
+            max-width: 480px;
+        }
+
+        .service-text h2 {
+            font-size: 2rem;
+            margin-bottom: var(--space-3);
+            color: var(--text-primary);
+        }
+
+        .service-text p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-6);
+            line-height: 1.7;
+        }
+
+        .service-features {
+            margin-bottom: var(--space-8);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+
+        .service-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+            font-size: 0.9375rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .service-features i {
+            color: var(--brand-red);
+            font-size: 0.75rem;
+            margin-top: 5px;
+            flex-shrink: 0;
+        }
+
+        .service-image-wrapper {
+            width: 100%; 
+            aspect-ratio: 4 / 3;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+            background-color: var(--bg-secondary);
+            position: relative;
+        }
+
+        .service-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity var(--transition-base);
+        }
+
+        .service-row:hover .service-image-wrapper {
+            border-color: var(--border-hover);
+        }
+
+        /* =========================================
+           CTA BANNER
+           ========================================= */
+        .cta-section {
+            background-color: var(--brand-navy);
+            padding: var(--space-16) 0;
+            border-top: 1px solid var(--brand-navy);
+        }
+
+        .cta-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-8);
+        }
+
+        .cta-text h2 {
+            color: var(--text-inverse);
+            font-size: 1.75rem;
+            margin-bottom: var(--space-2);
+        }
+
+        .cta-text p {
+            color: var(--text-tertiary);
+            font-size: 1rem;
+        }
+
+        .cta-actions {
+            display: flex;
+            gap: var(--space-3);
+            flex-shrink: 0;
+        }
+
+        .btn-inverse-primary {
+            background-color: var(--text-inverse);
+            color: var(--brand-navy);
+            border: 1px solid var(--text-inverse);
+        }
+        .btn-inverse-primary:hover {
+            background-color: var(--bg-secondary);
+        }
+
+        .btn-inverse-secondary {
+            background-color: transparent;
+            color: var(--text-inverse);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .btn-inverse-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* =========================================
+           FOOTER
+           ========================================= */
+        footer {
+            background-color: var(--bg-primary);
+            padding: var(--space-8) 0;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-4);
+        }
+        
+        .footer-inner p {
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+        }
+        
+        .footer-legal {
+            display: flex;
+            gap: var(--space-6);
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+        }
+        .footer-legal a:hover { color: var(--text-primary); }
+
+        /* =========================================
+           RESPONSIVE DESIGN
+           ========================================= */
+        @media (max-width: 1024px) {
+            .nav-links, .phone-link { display: none; }
+            .mobile-menu-btn { display: block; }
+            .mobile-menu { display: block; }
+            
+            .service-row {
+                gap: var(--space-8);
+            }
+            
+            .cta-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+            .cta-actions {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo img { height: 36px; }
+            
+            .service-row {
+                grid-template-columns: 1fr;
+                gap: var(--space-6);
+                padding: var(--space-12) 0;
+            }
+            
+            .service-row:nth-child(even) .service-image-wrapper {
+                order: 0;
+            }
+            
+            .service-text { max-width: 100%; }
+            .service-text h2 { font-size: 1.75rem; } 
+            .service-image-wrapper { aspect-ratio: 16 / 9; }
+            
+            .cta-actions {
+                flex-direction: column;
+            }
+            .cta-actions .btn {
+                width: 100%;
+            }
+            
+            .footer-inner { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="https://res.cloudinary.com/dvpt87rho/image/upload/v1793181019/Logo_Without-Glare_3_-b4ff6549-120w_oyoueu.png" alt="Texas Same-Day Home Services">
+            </a>
+            
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="services.html" class="active">Services</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="tel:7138321055" class="phone-link"><i class="fas fa-phone"></i> (713) 832-1055</a>
+                <button class="mobile-menu-btn" id="menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+            <nav class="mobile-nav-links">
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="about.html">About Us</a>
+                <a href="financing.html">Financing</a>
+                <a href="contact.html">Contact</a>
+                <a href="tel:7138321055" class="btn btn-primary"><i class="fas fa-phone"></i> Call (713) 832-1055</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container page-header-inner">
+            <h1>Heating, Cooling & Home Comfort Services</h1>
+            <p>Texas Same-Day provides a range of HVAC and home comfort solutions for customers throughout Greater Houston and surrounding Southeast Texas communities.</p>
+        </div>
+    </section>
+
+    <!-- Services List -->
+    <div class="container">
+        <section class="services-list">
+            
+            <!-- Air Conditioning -->
+            <article class="service-row">
+                <div class="service-text">
+                    <h2>Air Conditioning</h2>
+                    <p>When the Texas heat hits, you need a system you can rely on. Our certified technicians handle everything from routine maintenance to emergency AC repairs and complete system replacements.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> AC Repair & Emergency Service</li>
+                        <li><i class="fas fa-check"></i> AC Installation & Replacement</li>
+                        <li><i class="fas fa-check"></i> Mini-Split Installation & Service</li>
+                        <li><i class="fas fa-check"></i> Seasonal AC Maintenance</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-secondary">Request AC Service</a>
+                </div>
+                <div class="service-image-wrapper">
+                    <img src="https://res.cloudinary.com/dvpt87rho/image/upload/v1793181501/1793181268638_izz2u8.jpg" alt="Air Conditioning Service" class="service-image">
+                </div>
+            </article>
+
+            <!-- Heating Services -->
+            <article class="service-row">
+                <div class="service-text">
+                    <h2>Heating Services</h2>
+                    <p>Don't get left in the cold. We provide reliable heating system repair, installation, and furnace replacement to keep your home comfortable during those chilly winter nights.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Heating System Repair</li>
+                        <li><i class="fas fa-check"></i> Furnace Replacement</li>
+                        <li><i class="fas fa-check"></i> Heat Pump Services</li>
+                        <li><i class="fas fa-check"></i> Heating Maintenance</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-secondary">Request Heating Service</a>
+                </div>
+                <div class="service-image-wrapper">
+                    <img src="https://res.cloudinary.com/dvpt87rho/image/upload/v1793181519/1793181350572_vdle9n.jpg" alt="Heating Services" class="service-image">
+                </div>
+            </article>
+
+            <!-- HVAC Systems -->
+            <article class="service-row">
+                <div class="service-text">
+                    <h2>HVAC Installation & Systems</h2>
+                    <p>Whether you're building a new home or upgrading an aging system, we offer full residential and commercial HVAC installations, replacements, and comprehensive diagnostics.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> HVAC System Installation</li>
+                        <li><i class="fas fa-check"></i> Full System Replacement</li>
+                        <li><i class="fas fa-check"></i> Troubleshooting & Diagnostics</li>
+                        <li><i class="fas fa-check"></i> Preventative Maintenance Plans</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-secondary">Request HVAC Service</a>
+                </div>
+                <div class="service-image-wrapper">
+                    <img src="https://res.cloudinary.com/dvpt87rho/image/upload/v1793181529/1793181442586_nzcymm.jpg" alt="HVAC Installation" class="service-image">
+                </div>
+            </article>
+
+            <!-- Indoor Air Quality -->
+            <article class="service-row">
+                <div class="service-text">
+                    <h2>Indoor Air Quality</h2>
+                    <p>Breathe easier with our advanced air quality solutions. We install whole-home air purification systems, UV lights, and upgraded filtration to keep your indoor air clean and healthy.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Whole-Home Air Purification</li>
+                        <li><i class="fas fa-check"></i> UV Air Purification Systems</li>
+                        <li><i class="fas fa-check"></i> High-Efficiency Air Filtration Upgrades</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-secondary">Improve Air Quality</a>
+                </div>
+                <div class="service-image-wrapper">
+                    <img src="https://res.cloudinary.com/dvpt87rho/image/upload/v1793184559/1793184407394_d8urnt.jpg" alt="Indoor Air Quality" class="service-image">
+                </div>
+            </article>
+
+            <!-- Humidity Control & Ductwork -->
+            <article class="service-row">
+                <div class="service-text">
+                    <h2>Humidity Control & Ductwork</h2>
+                    <p>Houston's humidity is no joke. We offer whole-home dehumidifier installation and ductwork services to ensure your system runs efficiently and your home feels just right.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Whole-Home Dehumidifiers</li>
+                        <li><i class="fas fa-check"></i> Ductwork Installation & Replacement</li>
+                        <li><i class="fas fa-check"></i> Airflow Improvement Assessments</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-secondary">Request Ductwork Service</a>
+                </div>
+                <div class="service-image-wrapper">
+                    <img src="https://res.cloudinary.com/dvpt87rho/image/upload/v1793184567/1793184465154_yqaldm.jpg" alt="Ductwork Services" class="service-image">
+                </div>
+            </article>
+
+            <!-- Generators & Plumbing -->
+            <article class="service-row">
+                <div class="service-text">
+                    <h2>Generators & Plumbing</h2>
+                    <p>Protect your home with whole-home generator installation and maintenance. Additionally, as a full-service home provider, we offer professional plumbing services to address your complete home comfort needs.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Generator Installation & Maintenance</li>
+                        <li><i class="fas fa-check"></i> Plumbing Services (Contact for details)</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-secondary">Contact Us</a>
+                </div>
+                <div class="service-image-wrapper">
+                    <img src="https://res.cloudinary.com/dvpt87rho/image/upload/v1793184567/1793184533966_e1rfu3.jpg" alt="Generators" class="service-image">
+                </div>
+            </article>
+
+        </section>
+    </div>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container cta-inner">
+            <div class="cta-text">
+                <h2>Not sure what you need?</h2>
+                <p>Our team is ready to help diagnose your home comfort issues and provide reliable solutions.</p>
+            </div>
+            <div class="cta-actions">
+                <a href="tel:7138321055" class="btn btn-inverse-primary"><i class="fas fa-phone"></i> Call Now</a>
+                <a href="contact.html" class="btn btn-inverse-secondary">Schedule Service</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-inner">
+            <div class="logo">
+                <img src="https://res.cloudinary.com/dvpt87rho/image/upload/v1793181019/Logo_Without-Glare_3_-b4ff6549-120w_oyoueu.png" alt="Texas Same-Day Home Services" style="height: 32px;">
+            </div>
+            <p>&copy; <span id="year"></span> Texas Same-Day. All rights reserved.</p>
+            <div class="footer-legal">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            if (mobileMenu.classList.contains('active')) {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            } else {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
+        });
+    </script>
+</body>
+  </html>
