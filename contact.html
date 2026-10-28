@@ -1,0 +1,745 @@
+<!-- ==========================================
+     PAGE: CONTACT & SCHEDULE (contact.html)
+     ========================================== -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact & Schedule Service | Texas Same-Day</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* =========================================
+           DESIGN TOKENS & SYSTEM
+           ========================================= */
+        :root {
+            /* Brand Colors */
+            --brand-navy: #0B1B36;
+            --brand-red: #D92D20;
+            --brand-red-hover: #B42318;
+            
+            /* Neutrals */
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAFC; 
+            
+            /* Text */
+            --text-primary: #0F172A; 
+            --text-secondary: #475569; 
+            --text-tertiary: #94A3B8; 
+            --text-inverse: #FFFFFF;
+            
+            /* Borders & Lines */
+            --border-light: #E2E8F0; 
+            --border-hover: #CBD5E1; 
+            
+            /* Typography */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-display: 'Outfit', sans-serif;
+            
+            /* Spacing System */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-24: 6rem;
+
+            /* Radii */
+            --radius-sm: 4px;
+            --radius-md: 6px;
+            --radius-lg: 8px; 
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* =========================================
+           RESET & BASE
+           ========================================= */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--text-secondary);
+            background-color: var(--bg-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden; 
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            color: var(--text-primary);
+            font-weight: 600;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+        }
+
+        a { text-decoration: none; color: inherit; transition: color var(--transition-fast); }
+        ul { list-style: none; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: var(--space-6);
+            padding-right: var(--space-6);
+            width: 100%;
+        }
+
+        /* =========================================
+           COMPONENTS: LOGO & BUTTONS
+           ========================================= */
+        .logo {
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 1001;
+        }
+        
+        .logo img {
+            height: 44px; 
+            width: auto;
+            max-width: 180px;
+            object-fit: contain;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 var(--space-6);
+            height: 44px; 
+            border-radius: var(--radius-md);
+            font-family: var(--font-sans);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: 1px solid transparent;
+            text-align: center;
+            gap: var(--space-2);
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background-color: var(--brand-red);
+            color: var(--text-inverse);
+            box-shadow: var(--shadow-sm);
+        }
+        .btn-primary:hover {
+            background-color: var(--brand-red-hover);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            border-color: var(--border-light);
+            box-shadow: var(--shadow-sm);
+        }
+        .btn-secondary:hover {
+            background-color: var(--bg-secondary);
+            border-color: var(--border-hover);
+        }
+
+        /* =========================================
+           HEADER & NAV
+           ========================================= */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-light);
+            height: 72px;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-8);
+        }
+        
+        .nav-links a {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            position: relative;
+        }
+        
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-links a.active { color: var(--text-primary); }
+        
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -24px; 
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--brand-red);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--space-6);
+            position: relative;
+            z-index: 1001;
+        }
+
+        .phone-link {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        .phone-link i { color: var(--brand-red); }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            padding: var(--space-2);
+            border-radius: var(--radius-sm);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-5px);
+            transition: opacity var(--transition-fast), transform var(--transition-fast), visibility var(--transition-fast);
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            padding: var(--space-2) var(--space-6) var(--space-6);
+        }
+
+        .mobile-nav-links a {
+            padding: var(--space-3) 0;
+            border-bottom: 1px solid var(--border-light);
+            font-weight: 500;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+        .mobile-nav-links a:last-of-type { border-bottom: none; }
+        .mobile-nav-links .btn { margin-top: var(--space-4); width: 100%; }
+
+        /* =========================================
+           PAGE HEADER
+           ========================================= */
+        .page-header {
+            padding: var(--space-16) 0 var(--space-12);
+            background-color: var(--bg-primary);
+        }
+        
+        .page-header-inner {
+            max-width: 800px;
+        }
+
+        .page-header h1 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            margin-bottom: var(--space-4);
+            color: var(--text-primary);
+        }
+
+        .page-header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 650px;
+        }
+
+        /* =========================================
+           CONTACT GRID & INFO
+           ========================================= */
+        .contact-section {
+            padding-bottom: var(--space-24);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: var(--space-16);
+            align-items: start;
+        }
+
+        .contact-info-panel {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-8);
+        }
+
+        .contact-info-panel h2 {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-6);
+            color: var(--text-primary);
+        }
+
+        .info-block {
+            margin-bottom: var(--space-8);
+        }
+
+        .info-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-block h3 {
+            font-family: var(--font-sans);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-tertiary);
+            margin-bottom: var(--space-3);
+            font-weight: 600;
+        }
+
+        .office-address {
+            font-size: 1rem;
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin-bottom: var(--space-2);
+        }
+
+        .phone-number {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+        }
+        
+        .phone-number i {
+            color: var(--brand-red);
+            font-size: 1rem;
+        }
+
+        .hours-notice {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            background-color: var(--bg-primary);
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-light);
+            margin-top: var(--space-4);
+        }
+
+        /* =========================================
+           FORM STYLING
+           ========================================= */
+        .contact-form-panel {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-8);
+            box-shadow: var(--shadow-md);
+        }
+
+        .contact-form-panel h2 {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-2);
+            color: var(--text-primary);
+        }
+        
+        .contact-form-panel > p {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-6);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-4);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            height: 44px;
+            padding: 0 var(--space-3);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            font-family: var(--font-sans);
+            font-size: 0.9375rem;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .form-control::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--brand-navy);
+            box-shadow: 0 0 0 3px rgba(11, 27, 54, 0.1);
+        }
+
+        textarea.form-control {
+            height: auto;
+            min-height: 120px;
+            padding: var(--space-3);
+            resize: vertical;
+        }
+
+        .form-actions {
+            margin-top: var(--space-6);
+        }
+
+        .form-actions .btn {
+            width: 100%;
+            height: 48px;
+            font-size: 1rem;
+        }
+        
+        .form-confirmation {
+            display: none;
+            background-color: #F0FDF4;
+            border: 1px solid #BBF7D0;
+            color: #166534;
+            padding: var(--space-4);
+            border-radius: var(--radius-md);
+            margin-top: var(--space-4);
+            font-size: 0.9375rem;
+            text-align: center;
+        }
+
+        /* =========================================
+           FOOTER
+           ========================================= */
+        footer {
+            background-color: var(--bg-primary);
+            padding: var(--space-8) 0;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-4);
+        }
+        
+        .footer-inner p {
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+        }
+        
+        .footer-legal {
+            display: flex;
+            gap: var(--space-6);
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+        }
+        .footer-legal a:hover { color: var(--text-primary); }
+
+        /* =========================================
+           RESPONSIVE DESIGN
+           ========================================= */
+        @media (max-width: 1024px) {
+            .nav-links, .phone-link { display: none; }
+            .mobile-menu-btn { display: block; }
+            .mobile-menu { display: block; }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-8);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo img { height: 36px; }
+            
+            .page-header { padding: var(--space-12) 0 var(--space-8); }
+            .contact-form-panel, .contact-info-panel { padding: var(--space-6); }
+            
+            .form-grid { grid-template-columns: 1fr; }
+            
+            .footer-inner { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="https://res.cloudinary.com/dvpt87rho/image/upload/v1793181019/Logo_Without-Glare_3_-b4ff6549-120w_oyoueu.png" alt="Texas Same-Day Home Services">
+            </a>
+            
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="about.html">About</a>
+                <a href="financing.html">Financing</a>
+                <a href="contact.html" class="active">Contact</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="tel:7138321055" class="phone-link"><i class="fas fa-phone"></i> (713) 832-1055</a>
+                <button class="mobile-menu-btn" id="menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+            <nav class="mobile-nav-links">
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="about.html">About Us</a>
+                <a href="financing.html">Financing</a>
+                <a href="contact.html">Contact</a>
+                <a href="tel:7138321055" class="btn btn-primary"><i class="fas fa-phone"></i> Call (713) 832-1055</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container page-header-inner">
+            <h1>Contact & Schedule Service</h1>
+            <p>Contact Texas Same-Day to discuss your heating, cooling, or home comfort needs. We're ready to help you get your system back on track.</p>
+        </div>
+    </section>
+
+    <!-- Contact Content -->
+    <section class="contact-section">
+        <div class="container contact-grid">
+            
+            <!-- Contact Info Panel -->
+            <div class="contact-info-panel">
+                <h2>Contact Information</h2>
+                
+                <div class="info-block">
+                    <h3>Houston Office</h3>
+                    <div class="office-address">
+                        2000 Crawford St, Suite 819<br>
+                        Houston, TX 77002
+                    </div>
+                    <a href="tel:7138321055" class="phone-number">
+                        <i class="fas fa-phone"></i> (713) 832-1055
+                    </a>
+                </div>
+
+                <div class="info-block">
+                    <h3>Bay Area Office</h3>
+                    <div class="office-address">
+                        1300 Bay Area Blvd, Suite B256<br>
+                        Houston, TX 77058
+                    </div>
+                    <a href="tel:2817429999" class="phone-number">
+                        <i class="fas fa-phone"></i> (281) 742-9999
+                    </a>
+                </div>
+
+                <div class="info-block">
+                    <h3>Business Hours</h3>
+                    <div class="hours-notice">
+                        <i class="fas fa-clock" style="color: var(--brand-red); margin-right: 8px;"></i>
+                        Our team promotes same-day service availability. Please call to confirm current operating hours and emergency service arrangements.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form Panel -->
+            <div class="contact-form-panel">
+                <h2>Request Service</h2>
+                <p>Fill out the form below and our team will get back to you as soon as possible.</p>
+                
+                <form id="service-form">
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="John Doe" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="(713) 000-0000" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" class="form-control" placeholder="john@example.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="zip" class="form-label">Service Address or ZIP</label>
+                            <input type="text" id="zip" class="form-control" placeholder="e.g., 77002" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="service" class="form-label">Service Required</label>
+                            <select id="service" class="form-control" required>
+                                <option value="" disabled selected>Select a service</option>
+                                <option value="ac">Air Conditioning</option>
+                                <option value="heating">Heating Services</option>
+                                <option value="hvac">HVAC Installation</option>
+                                <option value="iaq">Indoor Air Quality</option>
+                                <option value="ductwork">Ductwork Services</option>
+                                <option value="generator">Generators</option>
+                                <option value="plumbing">Plumbing</option>
+                                <option value="other">Other / Not Sure</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="date" class="form-label">Preferred Date</label>
+                            <input type="date" id="date" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-method" class="form-label">Preferred Contact Method</label>
+                            <select id="contact-method" class="form-control" required>
+                                <option value="phone">Phone Call</option>
+                                <option value="email">Email</option>
+                                <option value="text">Text Message</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="description" class="form-label">Brief Description of the Problem</label>
+                            <textarea id="description" class="form-control" placeholder="Please describe what is happening with your system..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Request Service</button>
+                    </div>
+                    
+                    <div id="form-success" class="form-confirmation">
+                        <i class="fas fa-check-circle"></i> Thank you! Your service request has been received. We will contact you shortly.
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-inner">
+            <div class="logo">
+                <img src="https://res.cloudinary.com/dvpt87rho/image/upload/v1793181019/Logo_Without-Glare_3_-b4ff6549-120w_oyoueu.png" alt="Texas Same-Day Home Services" style="height: 32px;">
+            </div>
+            <p>&copy; <span id="year"></span> Texas Same-Day. All rights reserved.</p>
+            <div class="footer-legal">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            if (mobileMenu.classList.contains('active')) {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            } else {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
+        });
+
+        // Form Submission (Demo interaction)
+        const form = document.getElementById('service-form');
+        const successMessage = document.getElementById('form-success');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent actual submission for demo
+            
+            // Hide button, show success message
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.style.display = 'none';
+            successMessage.style.display = 'block';
+            
+            // Optional: Reset form after a few seconds
+            setTimeout(() => {
+                form.reset();
+                submitBtn.style.display = 'block';
+                successMessage.style.display = 'none';
+            }, 5000);
+        });
+    </script>
+</body>
+                              </html>
