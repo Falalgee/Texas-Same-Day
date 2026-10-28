@@ -250,7 +250,7 @@
         .mobile-nav-links .btn { margin-top: var(--space-4); width: 100%; }
 
         /* =========================================
-           HERO SECTION
+           HERO SECTION (UPDATED)
            ========================================= */
         .hero {
             position: relative;
@@ -263,15 +263,15 @@
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
             background: url('https://res.cloudinary.com/dvpt87rho/image/upload/v1793182006/1793181947765_gzxdmm.jpg') center/cover;
-            opacity: 0.4;
-            mix-blend-mode: luminosity;
+            opacity: 0.85; /* Much clearer image */
         }
         
+        /* Subtle gradient to ensure text readability without darkening the whole image */
         .hero::after {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(to right, rgba(11, 27, 54, 0.9) 0%, rgba(11, 27, 54, 0.4) 100%);
+            background: linear-gradient(to right, rgba(11, 27, 54, 0.9) 0%, rgba(11, 27, 54, 0.2) 100%);
             z-index: 1;
         }
 
@@ -302,9 +302,10 @@
         .btn-hero-secondary {
             background-color: rgba(255, 255, 255, 0.1);
             color: var(--text-inverse);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(4px);
         }
-        .btn-hero-secondary:hover { background-color: rgba(255, 255, 255, 0.15); }
+        .btn-hero-secondary:hover { background-color: rgba(255, 255, 255, 0.2); }
 
         /* =========================================
            TRUST BAR
@@ -486,6 +487,12 @@
         @media (max-width: 768px) {
             .logo img { height: 36px; } 
             .hero { padding: var(--space-16) 0; }
+            
+            /* Adjust gradient on mobile so white text is readable across the whole width */
+            .hero::after {
+                background: linear-gradient(to right, rgba(11, 27, 54, 0.9) 0%, rgba(11, 27, 54, 0.6) 100%);
+            }
+
             .hero-buttons { flex-direction: column; }
             .services-grid { grid-template-columns: 1fr; }
             
